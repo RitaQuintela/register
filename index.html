@@ -3,28 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Registration</title>
+    <title>MSc Program Tuition Calculator</title>
 </head>
 <body>
-    <h1>User Registration</h1>
-    <form id="registration-form">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br>
-
-        <!-- Other form fields here -->
-
-        <button type="button" onclick="handleRegistration()">Register</button>
-    </form>
-
-    <div id="success-message" style="display: none;">
-        Your account has been created! Sign in to continue.
-    </div>
+    <h1>MSc Program Tuition Calculator</h1>
+    <p>Choose an MSc program:</p>
+    <select id="program">
+        <option value="business">Business</option>
+        <option value="economics">Economics</option>
+        <option value="finance">Finance</option>
+    </select>
+    <button onclick="calculateTuition()">Calculate Tuition</button>
+    <p id="tuitionResult"></p>
 
     <script>
-        function handleRegistration() {
-            // Validate form fields and show success message
-            // (You can customize this part using JavaScript)
-            document.getElementById("success-message").style.display = "block";
+        function calculateTuition() {
+            const program = document.getElementById("program").value;
+            const tuitionFees = {
+                business: 15000,
+                economics: 12000,
+                finance: 18000
+            };
+
+            if (program in tuitionFees) {
+                const tuition = tuitionFees[program];
+                document.getElementById("tuitionResult").textContent = `Tuition fee for ${program}: $${tuition}`;
+            } else {
+                document.getElementById("tuitionResult").textContent = "Invalid program choice. Please select from Business, Economics, or Finance.";
+            }
         }
     </script>
 </body>
