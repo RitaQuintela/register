@@ -31,7 +31,7 @@
 
             if (program in tuitionFees) {
                 const tuition = tuitionFees[program];
-                document.getElementById("tuitionResult").textContent = `Tuition fee for ${program.capitalize()}: $${tuition}`;
+                document.getElementById("tuitionResult").textContent = `Tuition fee for ${program()}: $${tuition}`;
             } else {
                 document.getElementById("tuitionResult").textContent = "Invalid program choice. Please select from Business, Economics, or Finance.";
             }
