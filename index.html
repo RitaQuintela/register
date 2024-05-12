@@ -3,77 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Calculator</title>
-    <style>
-        /* Add your custom CSS styles here */
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        .calculator {
-            display: inline-block;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-        .screen {
-            border: 1px solid #ddd;
-            padding: 5px;
-            margin-bottom: 10px;
-        }
-        .buttons-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 5px;
-        }
-        button {
-            padding: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-    </style>
+    <title>Tuition Fee Simulator</title>
 </head>
 <body>
-    <div class="calculator">
-        <div class="screen">
-            <div id="currentOperationScreen">0</div>
-        </div>
-        <div class="buttons-grid">
-            <button onclick="appendToScreen('7')">7</button>
-            <button onclick="appendToScreen('8')">8</button>
-            <button onclick="appendToScreen('9')">9</button>
-            <button onclick="appendToScreen('/')">/</button>
-            <button onclick="appendToScreen('4')">4</button>
-            <button onclick="appendToScreen('5')">5</button>
-            <button onclick="appendToScreen('6')">6</button>
-            <button onclick="appendToScreen('*')">*</button>
-            <button onclick="appendToScreen('1')">1</button>
-            <button onclick="appendToScreen('2')">2</button>
-            <button onclick="appendToScreen('3')">3</button>
-            <button onclick="appendToScreen('-')">-</button>
-            <button onclick="appendToScreen('0')">0</button>
-            <button onclick="appendToScreen('.')">.</button>
-            <button onclick="calculateResult()">=</button>
-            <button onclick="appendToScreen('+')">+</button>
-        </div>
-    </div>
+    <h1>Tuition Fee Simulator</h1>
+    <p>Enter the name of the program:</p>
+    <input type="text" id="programName" placeholder="Program name">
+    <button onclick="calculateTuition()">Calculate Tuition</button>
+    <p id="tuitionResult"></p>
 
     <script>
-        let currentOperation = "";
+        function calculateTuition() {
+            const programName = document.getElementById("programName").value.toLowerCase(); // Convert to lowercase for case-insensitivity
+            const tuitionFees = {
+                business: 15000,
+                economics: 12000,
+                finance: 18000
+                // Add more programs and their tuition fees as needed
+            };
 
-        function appendToScreen(value) {
-            currentOperation += value;
-            document.getElementById("currentOperationScreen").textContent = currentOperation;
-        }
-
-        function calculateResult() {
-            try {
-                const result = eval(currentOperation);
-                document.getElementById("currentOperationScreen").textContent = result;
-                currentOperation = result.toString();
-            } catch (error) {
-                document.getElementById("currentOperationScreen").textContent = "Error";
+            if (programName in tuitionFees) {
+                const tuition = tuitionFees[programName];
+                document.getElementById("tuitionResult").textContent = `Tuition fee for ${programName}: $${tuition}`;
+            } else {
+                document.getElementById("tuitionResult").textContent = "Invalid program choice. Please enter a valid program name.";
             }
         }
     </script>
 </body>
 </html>
+
