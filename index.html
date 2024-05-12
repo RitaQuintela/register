@@ -1,28 +1,37 @@
-import pandas as pd
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSc Program Tuition Calculator</title>
+</head>
+<body>
+    <h1>MSc Program Tuition Calculator</h1>
+    <p>Choose an MSc program:</p>
+    <select id="program">
+        <option value="business">Business</option>
+        <option value="economics">Economics</option>
+        <option value="finance">Finance</option>
+    </select>
+    <button onclick="calculateTuition()">Calculate Tuition</button>
+    <p id="tuitionResult"></p>
 
-def read_tuition_from_excel():
-    # Load the Excel file (assuming it's in the same directory as this script)
-    try:
-        df = pd.read_excel("tuition.xlsx")
-    except FileNotFoundError:
-        print("Error: The 'tuition.xlsx' file was not found.")
-        return None
+    <script>
+        function calculateTuition() {
+            const program = document.getElementById("program").value;
+            const tuitionFees = {
+                business: 15000,
+                economics: 12000,
+                finance: 18000
+            };
 
-    # Create a dictionary from the DataFrame
-    tuition_dict = dict(zip(df["Program"], df["Tuition"]))
-
-    return tuition_dict
-
-def main():
-    tuition_fees = read_tuition_from_excel()
-    if tuition_fees:
-        program = input("Choose an MSc program (business, economics, finance): ").lower()
-        if program in tuition_fees:
-            print(f"The tuition fee for {program.capitalize()} is ${tuition_fees[program]:,.2f}")
-        else:
-            print("Invalid program choice. Please select from business, economics, or finance.")
-    else:
-        print("Unable to read tuition data. Make sure 'tuition.xlsx' exists in the same directory.")
-
-if __name__ == "__main__":
-    main()
+            if (program in tuitionFees) {
+                const tuition = tuitionFees[program];
+                document.getElementById("tuitionResult").textContent = `Tuition fee for ${program.capitalize()}: $${tuition}`;
+            } else {
+                document.getElementById("tuitionResult").textContent = "Invalid program choice. Please select from Business, Economics, or Finance.";
+            }
+        }
+    </script>
+</body>
+</html>
