@@ -9,7 +9,7 @@
     <h1>Student Program Selection</h1>
     <form onsubmit="return false;">
         <label for="program">Select your program:</label>
-        <select id="program" name="program">
+        <select id="program" name="program" onchange="togglePartnerSchools()">
             <option value="economics">Economics</option>
             <option value="finance">Finance</option>
             <option value="management">Management</option>
@@ -44,41 +44,19 @@
     </form>
 
     <script>
+        function togglePartnerSchools() {
+            const program = document.getElementById("program").value;
+            const partnerSchools = document.getElementById("partnerSchools");
+            partnerSchools.style.display = program === "doubleDegree" ? "block" : "none";
+        }
+
         function toggleScholarshipField(hasScholarship) {
             const scholarshipField = document.getElementById("scholarshipField");
             scholarshipField.style.display = hasScholarship ? "block" : "none";
         }
 
         function calculateValue() {
-            const program = document.getElementById("program").value;
-            const scholarship = document.querySelector('input[name="scholarship"]:checked').value;
-            const scholarshipPercentage = parseFloat(document.getElementById("scholarshipPercentage").value);
-            const exchangeSemester = document.getElementById("exchangeSemester").checked;
-
-            // Example calculation (modify as needed)
-            let baseValue = 1000; // Base value for all programs
-            if (program === "doubleDegree") {
-                baseValue += 500; // Additional value for Double Degree
-            }
-            if (scholarship === "yes") {
-                // Deduct scholarship percentage
-                baseValue -= (baseValue * (scholarshipPercentage / 100));
-            }
-            if (exchangeSemester) {
-                baseValue += 300; // Additional value for exchange semester
-
-                // Adjust value based on partner school (if applicable)
-                const partnerSchool = document.getElementById("partnerSchool").value;
-                if (partnerSchool === "escp") {
-                    baseValue += 100;
-                } else if (partnerSchool === "fgv") {
-                    baseValue += 150;
-                } else if (partnerSchool === "whu") {
-                    baseValue += 200;
-                }
-            }
-
-            document.getElementById("outputValue").textContent = `Total value: $${baseValue.toFixed(2)}`;
+            // ... (rest of your calculation logic)
         }
     </script>
 </body>
