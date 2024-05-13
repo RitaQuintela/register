@@ -3,32 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tuition Fee Simulator</title>
+    <title>Student Program Selection</title>
 </head>
 <body>
-    <h1>Tuition Fee Simulator</h1>
-    <p>Enter the name of the program:</p>
-    <input type="text" id="programName" placeholder="Program name">
-    <button onclick="fetchTuition()">Calculate Tuition</button>
-    <p id="tuitionResult"></p>
+    <h1>Student Program Selection</h1>
+    <form>
+        <label for="program">Select your program:</label>
+        <select id="program" name="program">
+            <option value="economics">Economics</option>
+            <option value="finance">Finance</option>
+            <option value="management">Management</option>
+            <option value="doubleDegree">Double Degree</option>
+        </select><br>
+
+        <div id="partnerSchools" style="display: none;">
+            <label for="partnerSchool">Choose a partner school:</label>
+            <select id="partnerSchool" name="partnerSchool">
+                <option value="escp">ESCP</option>
+                <option value="fgv">FGV</option>
+                <option value="whu">WHU</option>
+            </select><br>
+        </div>
+
+        <label for="scholarship">Do you receive a scholarship?</label>
+        <input type="radio" id="yesScholarship" name="scholarship" value="yes">
+        <label for="yesScholarship">Yes</label>
+        <input type="radio" id="noScholarship" name="scholarship" value="no">
+        <label for="noScholarship">No</label><br>
+
+        <label for="exchangeSemester">Include an exchange semester?</label>
+        <input type="checkbox" id="exchangeSemester" name="exchangeSemester"><br>
+
+        <button onclick="calculateValue()">Calculate</button>
+        <p id="outputValue"></p>
+    </form>
 
     <script>
-        async function fetchTuition() {
-            const programName = document.getElementById("programName").value.toLowerCase();
-            try {
-                const response = await fetch(`/api/getTuition?programName=${programName}`);
-                const data = await response.json();
+        function calculateValue() {
+            const program = document.getElementById("program").value;
+            const scholarship = document.querySelector('input[name="scholarship"]:checked').value;
+            const exchangeSemester = document.getElementById("exchangeSemester").checked;
 
-                if (response.status === 200) {
-                    const tuition = data.tuition;
-                    document.getElementById("tuitionResult").textContent = `Tuition fee for ${programName}: $${tuition}`;
-                } else {
-                    document.getElementById("tuitionResult").textContent = "Invalid program choice. Please enter a valid program name.";
-                }
-            } catch (error) {
-                console.error("Error fetching tuition:", error);
-                document.getElementById("tuitionResult").textContent = "An error occurred. Please try again later.";
+            // Example calculation (modify as needed)
+            let baseValue = 1000; // Base value for all programs
+            if (program === "doubleDegree") {
+                baseValue += 500; // Additional value for Double Degree
             }
+            if (scholarship === "yes") {
+                baseValue -= 200; // Deduction for scholarship
+            }
+            if (exchangeSemester) {
+                baseValue += 300; // Additional value for exchange semester
+
+                // Adjust value based on partner school (if applicable)
+                const partnerSchool = document.getElementById("partnerSchool").value;
+                if (partnerSchool === "escp") {
+                    baseValue += 100;
+                } else if (partnerSchool === "fgv") {
+                    baseValue += 150;
+                } else if (partnerSchool === "whu") {
+                    baseValue += 200;
+                }
+            }
+
+            document.getElementById("outputValue").textContent = `Total value: $${baseValue}`;
         }
     </script>
 </body>
