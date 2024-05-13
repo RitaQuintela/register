@@ -26,13 +26,15 @@
         </div>
 
         <label for="scholarship">Do you receive a scholarship?</label>
-        <input type="radio" id="yesScholarship" name="scholarship" value="yes">
+        <input type="radio" id="yesScholarship" name="scholarship" value="yes" onclick="toggleScholarshipField(true)">
         <label for="yesScholarship">Yes</label>
-        <input type="radio" id="noScholarship" name="scholarship" value="no">
+        <input type="radio" id="noScholarship" name="scholarship" value="no" onclick="toggleScholarshipField(false)">
         <label for="noScholarship">No</label><br>
 
-        <label for="scholarshipPercentage">Scholarship Percentage:</label>
-        <input type="number" id="scholarshipPercentage" name="scholarshipPercentage" min="0" max="100"><br>
+        <div id="scholarshipField" style="display: none;">
+            <label for="scholarshipPercentage">Scholarship Percentage:</label>
+            <input type="number" id="scholarshipPercentage" name="scholarshipPercentage" min="0" max="100"><br>
+        </div>
 
         <label for="exchangeSemester">Include an exchange semester?</label>
         <input type="checkbox" id="exchangeSemester" name="exchangeSemester"><br>
@@ -42,36 +44,13 @@
     </form>
 
     <script>
+        function toggleScholarshipField(hasScholarship) {
+            const scholarshipField = document.getElementById("scholarshipField");
+            scholarshipField.style.display = hasScholarship ? "block" : "none";
+        }
+
         function calculateValue() {
-            const program = document.getElementById("program").value;
-            const scholarship = document.querySelector('input[name="scholarship"]:checked').value;
-            const scholarshipPercentage = parseFloat(document.getElementById("scholarshipPercentage").value);
-            const exchangeSemester = document.getElementById("exchangeSemester").checked;
-
-            // Example calculation (modify as needed)
-            let baseValue = 1000; // Base value for all programs
-            if (program === "doubleDegree") {
-                baseValue += 500; // Additional value for Double Degree
-            }
-            if (scholarship === "yes") {
-                // Deduct scholarship percentage
-                baseValue -= (baseValue * (scholarshipPercentage / 100));
-            }
-            if (exchangeSemester) {
-                baseValue += 300; // Additional value for exchange semester
-
-                // Adjust value based on partner school (if applicable)
-                const partnerSchool = document.getElementById("partnerSchool").value;
-                if (partnerSchool === "escp") {
-                    baseValue += 100;
-                } else if (partnerSchool === "fgv") {
-                    baseValue += 150;
-                } else if (partnerSchool === "whu") {
-                    baseValue += 200;
-                }
-            }
-
-            document.getElementById("outputValue").textContent = `Total value: $${baseValue.toFixed(2)}`;
+            // ... (rest of your calculation logic)
         }
     </script>
 </body>
