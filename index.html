@@ -9,31 +9,27 @@
     <h1>Tuition Fee Simulator</h1>
     <p>Enter the name of the program:</p>
     <input type="text" id="programName" placeholder="Program name">
-    <button onclick="calculateTuition()">Calculate Tuition</button>
+    <button onclick="fetchTuition()">Calculate Tuition</button>
     <p id="tuitionResult"></p>
 
     <script>
-        // Assume you've loaded the Excel data into an array called 'tuitionData'
-        const tuitionData = [
-            { program: 'business', fee: 15000 },
-            { program: 'economics', fee: 12000 },
-            { program: 'finance', fee: 18000 }
-            // Add more programs and fees as needed
-        ];
-
-        function calculateTuition() {
+        async function fetchTuition() {
             const programName = document.getElementById("programName").value.toLowerCase();
-            const program = tuitionData.find(item => item.program === programName);
+            try {
+                const response = await fetch(`/api/getTuition?programName=${programName}`);
+                const data = await response.json();
 
-            if (program) {
-                const tuition = program.fee;
-                document.getElementById("tuitionResult").textContent = `Tuition fee for ${programName}: $${tuition}`;
-            } else {
-                document.getElementById("tuitionResult").textContent = "Invalid program choice. Please enter a valid program name.";
+                if (response.status === 200) {
+                    const tuition = data.tuition;
+                    document.getElementById("tuitionResult").textContent = `Tuition fee for ${programName}: $${tuition}`;
+                } else {
+                    document.getElementById("tuitionResult").textContent = "Invalid program choice. Please enter a valid program name.";
+                }
+            } catch (error) {
+                console.error("Error fetching tuition:", error);
+                document.getElementById("tuitionResult").textContent = "An error occurred. Please try again later.";
             }
         }
     </script>
 </body>
 </html>
-
-
