@@ -6,14 +6,22 @@
     <title>Student Program Selection</title>
 </head>
 <body>
-    <h1>Student Program Selection</h1>
+    <h1>Master Programs Tuition Fees Simulator</h1>
     <form onsubmit="return false;">
         <label for="program">Select your program:</label>
         <select id="program" name="program" onchange="togglePartnerSchools()">
-            <option value="economics">Economics</option>
-            <option value="finance">Finance</option>
-            <option value="management">Management</option>
-            <option value="doubleDegree">Double Degree</option>
+            <option value="intl finance"></option>International MSc in Finance</option>
+            <option value="intl finance dd"></option>International MSc in Finance - Double Degree</option>
+            <option value="intl management"></option>International MSc in Management</option>
+            <option value="intl management dd"></option>International MSc in Management - Double Degree</option>
+            <option value="business"></option>MSc in Business</option>
+            <option value="business analytics"> MSc in Business Analytics</option>
+            <option value="economics">MSc in Economics</option>
+            <option value="economics dd">MSc in Economics - Double Degree</option>
+            <option value="finance">MSc in Finance</option>
+            <option value="finance postexperience">MSc in Finance (post experience)</option>
+            <option value="management strat mark">MSc in Management with specialization in Strategic Marketing</option>
+            <option value="management strat entr impact">MSc in Management with specialization in Strategy, Entrepreneurship & Impact</option>
         </select><br>
 
         <div id="partnerSchools" style="display: none;">
@@ -63,24 +71,27 @@
 
             // Example calculation (modify as needed)
             let baseValue = 1000; // Base value for all programs
-            if (program === "doubleDegree") {
-                baseValue += 500; // Additional value for Double Degree
+            if (program === "intl finance") {
+                baseValue = 15900; // Base value for intl finance
+            }
+            if (program === "intl management") {
+                baseValue += 14450; // Base value for intl management
             }
             if (scholarship === "yes") {
                 // Deduct scholarship percentage
                 baseValue -= (baseValue * (scholarshipPercentage / 100));
             }
             if (exchangeSemester) {
-                baseValue += 300; // Additional value for exchange semester
+                baseValue += 2200; // Additional value for exchange semester
 
                 // Adjust value based on partner school (if applicable)
                 const partnerSchool = document.getElementById("partnerSchool").value;
                 if (partnerSchool === "escp") {
-                    baseValue += 100;
+                    baseValue += 6910;
                 } else if (partnerSchool === "fgv") {
                     baseValue += 150;
                 } else if (partnerSchool === "whu") {
-                    baseValue += 200;
+                    baseValue += 4000;
                 }
             }
 
