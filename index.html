@@ -13,17 +13,20 @@
     <p id="tuitionResult"></p>
 
     <script>
-        function calculateTuition() {
-            const programName = document.getElementById("programName").value.toLowerCase(); // Convert to lowercase for case-insensitivity
-            const tuitionFees = {
-                business: 15000,
-                economics: 12000,
-                finance: 18000
-                // Add more programs and their tuition fees as needed
-            };
+        // Assume you've loaded the Excel data into an array called 'tuitionData'
+        const tuitionData = [
+            { program: 'business', fee: 15000 },
+            { program: 'economics', fee: 12000 },
+            { program: 'finance', fee: 18000 }
+            // Add more programs and fees as needed
+        ];
 
-            if (programName in tuitionFees) {
-                const tuition = tuitionFees[programName];
+        function calculateTuition() {
+            const programName = document.getElementById("programName").value.toLowerCase();
+            const program = tuitionData.find(item => item.program === programName);
+
+            if (program) {
+                const tuition = program.fee;
                 document.getElementById("tuitionResult").textContent = `Tuition fee for ${programName}: $${tuition}`;
             } else {
                 document.getElementById("tuitionResult").textContent = "Invalid program choice. Please enter a valid program name.";
@@ -32,4 +35,5 @@
     </script>
 </body>
 </html>
+
 
