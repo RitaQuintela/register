@@ -50,7 +50,35 @@
         }
 
         function calculateValue() {
-            // ... (rest of your calculation logic)
+            const program = document.getElementById("program").value;
+            const scholarship = document.querySelector('input[name="scholarship"]:checked').value;
+            const scholarshipPercentage = parseFloat(document.getElementById("scholarshipPercentage").value);
+            const exchangeSemester = document.getElementById("exchangeSemester").checked;
+
+            // Example calculation (modify as needed)
+            let baseValue = 1000; // Base value for all programs
+            if (program === "doubleDegree") {
+                baseValue += 500; // Additional value for Double Degree
+            }
+            if (scholarship === "yes") {
+                // Deduct scholarship percentage
+                baseValue -= (baseValue * (scholarshipPercentage / 100));
+            }
+            if (exchangeSemester) {
+                baseValue += 300; // Additional value for exchange semester
+
+                // Adjust value based on partner school (if applicable)
+                const partnerSchool = document.getElementById("partnerSchool").value;
+                if (partnerSchool === "escp") {
+                    baseValue += 100;
+                } else if (partnerSchool === "fgv") {
+                    baseValue += 150;
+                } else if (partnerSchool === "whu") {
+                    baseValue += 200;
+                }
+            }
+
+            document.getElementById("outputValue").textContent = `Total value: $${baseValue.toFixed(2)}`;
         }
     </script>
 </body>
